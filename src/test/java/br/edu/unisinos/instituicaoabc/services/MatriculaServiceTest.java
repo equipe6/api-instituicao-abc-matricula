@@ -25,8 +25,12 @@ class MatriculaServiceTest {
 
     @Mock
     private CursoService cursoService;
+
     @Mock
     private PessoaService pessoaService;
+
+    @Mock
+    private SqsService sqsService;
 
     private MatriculaService matriculaService;
 
@@ -37,7 +41,7 @@ class MatriculaServiceTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        this.matriculaService = BDDMockito.spy(new MatriculaService(matriculaRepository, cursoService, pessoaService));
+        this.matriculaService = BDDMockito.spy(new MatriculaService(matriculaRepository, cursoService, pessoaService, sqsService));
     }
 
     @AfterEach

@@ -27,6 +27,8 @@ public class MatriculaService implements Serializable {
 
     private final transient PessoaService pessoaService;
 
+    private final transient SqsService sqsService;
+
     boolean isValidMatricula(Matricula matricula) {
         var result = matricula != null;
         result = result && matricula.getPessoa() != null;
@@ -43,7 +45,9 @@ public class MatriculaService implements Serializable {
             Curso curso = cursoService.findById(matricula.getCurso().getId());
             matricula.setCurso(curso);
 
-            this.save(matricula);
+            matricula = this.save(matricula);
+
+            this.sqsService.sendMessage(matricula);
         }
         return matricula;
     }
