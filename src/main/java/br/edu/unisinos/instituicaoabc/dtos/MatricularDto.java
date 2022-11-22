@@ -4,7 +4,6 @@ import br.edu.unisinos.instituicaoabc.core.BaseDto;
 import br.edu.unisinos.instituicaoabc.entities.Curso;
 import br.edu.unisinos.instituicaoabc.entities.Matricula;
 import br.edu.unisinos.instituicaoabc.entities.Pessoa;
-import br.edu.unisinos.instituicaoabc.enums.TipoCursoEnum;
 import br.edu.unisinos.instituicaoabc.enums.TurnoEnum;
 import br.edu.unisinos.instituicaoabc.validations.OnCreate;
 import br.edu.unisinos.instituicaoabc.validations.OnDelete;
@@ -22,25 +21,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class MatriculaDto extends BaseDto {
+public class MatricularDto extends BaseDto {
 
     private static final long serialVersionUID = 1L;
 
-    @NotNull(groups = {OnUpdate.class, OnDelete.class})
-    private Long id;
-
-    //Curso
-    @NotNull(groups = {OnUpdate.class, OnDelete.class})
-    private Long idCurso;
-
-    private String nomeCurso;
-
-    private TipoCursoEnum tipoCurso;
-
     //Pessoa
-    @NotNull(groups = {OnUpdate.class, OnDelete.class})
-    private Long idPessoa;
-
     @NotNull(groups = {OnCreate.class, OnUpdate.class})
     @NotEmpty(groups = {OnCreate.class, OnUpdate.class})
     private String cpf;
@@ -82,18 +67,16 @@ public class MatriculaDto extends BaseDto {
     @NotEmpty(groups = {OnCreate.class, OnUpdate.class})
     private String estado;
 
+    //Curso
+    @NotNull(groups = {OnUpdate.class, OnDelete.class})
+    private Long idCurso;
+
     @NotNull(groups = {OnCreate.class, OnUpdate.class})
     private TurnoEnum turno;
 
-    public static Matricula to(MatriculaDto dto) {
+    public static Matricula to(MatricularDto dto) {
         Matricula entity = new Matricula();
-        entity.setId(dto.getId());
-        entity.setCurso(new Curso());
-        entity.getCurso().setId(dto.getIdCurso());
-        entity.getCurso().setNome(dto.getNomeCurso());
-        entity.getCurso().setTipo(dto.getTipoCurso());
         entity.setPessoa(new Pessoa());
-        entity.getPessoa().setId(dto.getIdPessoa());
         entity.getPessoa().setCpf(dto.getCpf());
         entity.getPessoa().setNome(dto.getNome());
         entity.getPessoa().setEmail(dto.getEmail());
@@ -105,31 +88,26 @@ public class MatriculaDto extends BaseDto {
         entity.getPessoa().setCep(dto.getCep());
         entity.getPessoa().setCidade(dto.getCidade());
         entity.getPessoa().setEstado(dto.getEstado());
+        entity.setCurso(new Curso());
+        entity.getCurso().setId(dto.getIdCurso());
         entity.setTurno(dto.getTurno());
         return entity;
     }
 
-    public static List<Matricula> to(List<MatriculaDto> dtos) {
+    public static List<Matricula> to(List<MatricularDto> dtos) {
         if (dtos == null) {
             return null;
         }
         List<Matricula> entities = new ArrayList<>();
-        for (MatriculaDto dto : dtos) {
+        for (MatricularDto dto : dtos) {
             entities.add(to(dto));
         }
         return entities;
     }
 
-    public static MatriculaDto from(Matricula entity) {
-        MatriculaDto dto = new MatriculaDto();
-        dto.setId(entity.getId());
-        if (entity.getCurso() != null) {
-            dto.setIdCurso(entity.getCurso().getId());
-            dto.setNomeCurso(entity.getCurso().getNome());
-            dto.setTipoCurso(entity.getCurso().getTipo());
-        }
+    public static MatricularDto from(Matricula entity) {
+        MatricularDto dto = new MatricularDto();
         if (entity.getPessoa() != null) {
-            dto.setIdPessoa(entity.getPessoa().getId());
             dto.setCpf(entity.getPessoa().getCpf());
             dto.setNome(entity.getPessoa().getNome());
             dto.setEmail(entity.getPessoa().getEmail());
@@ -142,16 +120,18 @@ public class MatriculaDto extends BaseDto {
             dto.setCidade(entity.getPessoa().getCidade());
             dto.setEstado(entity.getPessoa().getEstado());
         }
+        if (entity.getCurso() != null) {
+            dto.setIdCurso(entity.getCurso().getId());
+        }
         dto.setTurno(entity.getTurno());
-
         return dto;
     }
 
-    public static List<MatriculaDto> from(List<Matricula> entities) {
+    public static List<MatricularDto> from(List<Matricula> entities) {
         if (entities == null) {
             return null;
         }
-        List<MatriculaDto> dtos = new ArrayList<>();
+        List<MatricularDto> dtos = new ArrayList<>();
         for (Matricula entity : entities) {
             dtos.add(from(entity));
         }

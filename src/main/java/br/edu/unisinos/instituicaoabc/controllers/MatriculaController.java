@@ -2,6 +2,7 @@ package br.edu.unisinos.instituicaoabc.controllers;
 
 
 import br.edu.unisinos.instituicaoabc.dtos.MatriculaDto;
+import br.edu.unisinos.instituicaoabc.dtos.MatricularDto;
 import br.edu.unisinos.instituicaoabc.entities.Matricula;
 import br.edu.unisinos.instituicaoabc.services.MatriculaService;
 import lombok.AccessLevel;
@@ -48,9 +49,9 @@ public class MatriculaController implements Serializable {
 
     @PostMapping(value = "matricular")
     @ResponseBody
-    public ResponseEntity<MatriculaDto> matricular(@RequestBody MatriculaDto dto) {
+    public ResponseEntity<MatriculaDto> matricular(@RequestBody MatricularDto dto) {
         log.info("matricular Matricula:" + dto);
-        Matricula matricula = this.matriculaService.matricular(MatriculaDto.to(dto));
+        Matricula matricula = this.matriculaService.matricular(MatricularDto.to(dto));
         return ResponseEntity.ok(MatriculaDto.from(matricula));
     }
 }
