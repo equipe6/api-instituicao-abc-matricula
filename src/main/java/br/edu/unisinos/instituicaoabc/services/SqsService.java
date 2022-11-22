@@ -4,6 +4,7 @@ import br.edu.unisinos.instituicaoabc.entities.Matricula;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -25,6 +26,7 @@ public class SqsService implements Serializable {
     private final SqsClient sqsClient;
 
 
+    @Async
     public void sendMessage(String messageBody) {
         SendMessageRequest messageRequest = SendMessageRequest.builder()
                 .queueUrl(QUEUE_URL)
@@ -34,6 +36,7 @@ public class SqsService implements Serializable {
         log.info("messageResponse: " + messageResponse);
     }
 
+    @Async
     public void sendMessage(Matricula matricula) {
         this.sendMessage(matricula.toString());
     }
