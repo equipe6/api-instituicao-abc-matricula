@@ -1,5 +1,6 @@
 package br.edu.unisinos.instituicaoabc.services;
 
+import br.edu.unisinos.instituicaoabc.dtos.MatriculaDto;
 import br.edu.unisinos.instituicaoabc.entities.Curso;
 import br.edu.unisinos.instituicaoabc.entities.Matricula;
 import br.edu.unisinos.instituicaoabc.entities.Pessoa;
@@ -47,7 +48,7 @@ public class MatriculaService implements Serializable {
 
             matricula = this.save(matricula);
 
-            this.sqsService.sendMessage(matricula);
+            this.sqsService.sendMessage(MatriculaDto.from(matricula));
         }
         return matricula;
     }

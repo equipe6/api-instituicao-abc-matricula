@@ -1,6 +1,6 @@
 package br.edu.unisinos.instituicaoabc.services;
 
-import br.edu.unisinos.instituicaoabc.entities.Matricula;
+import br.edu.unisinos.instituicaoabc.dtos.MatriculaDto;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -37,8 +37,8 @@ public class SqsService implements Serializable {
     }
 
     @Async
-    public void sendMessage(Matricula matricula) {
-        this.sendMessage(matricula.toString());
+    public void sendMessage(MatriculaDto matriculaDto) {
+        this.sendMessage(matriculaDto.toString());
     }
 
 }
