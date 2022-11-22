@@ -16,11 +16,10 @@
 
     <properties>
         <java.version>11</java.version>
-        <springfox-swagger.version>2.9.2</springfox-swagger.version>
-        <apache-commons-lang3.version>3.9</apache-commons-lang3.version>
+        <apache-commons-lang3.version>3.12.0</apache-commons-lang3.version>
         <jacoco.version>0.8.8</jacoco.version>
-        <springdoc.version>1.6.9</springdoc.version>
-        <zenvia-api.version>1.1.0</zenvia-api.version>
+        <springdoc.version>1.6.13</springdoc.version>
+        <modelmapper.version>3.1.0</modelmapper.version>
 
         <sonar.projectKey>equipe6_api-instituicao-abc-matricula</sonar.projectKey>
         <sonar.organization>equipe6</sonar.organization>
@@ -118,6 +117,12 @@
             <artifactId>validation-api</artifactId>
         </dependency>
 
+        <!-- AWS -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sqs</artifactId>
+        </dependency>
+
         <!-- Swagger and Swagger UI -->
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -126,15 +131,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.zenvia</groupId>
-            <artifactId>zenvia-api-sdk-client-spring</artifactId>
-            <version>${zenvia-api.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>3.1.0</version>
+            <version>${modelmapper.version}</version>
         </dependency>
 
         <dependency>
@@ -144,6 +143,18 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>bom</artifactId>
+                <version>2.18.22</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -205,7 +216,7 @@
                 <repository>
                     <id>central</id>
                     <name>Central Repository</name>
-                    <url>http://repo.maven.apache.org/maven2</url>
+                    <url>https://repo.maven.apache.org/maven2</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
