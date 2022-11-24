@@ -114,7 +114,7 @@ public class MatriculaService implements Serializable {
     /**
      * Metodo responsavel para validar se matricula esta valida antes de salvar.
      */
-    private boolean isValidMatricula(Matricula matricula) {
+    boolean isValidMatricula(Matricula matricula) {
         var result = matricula != null;
         result = result && matricula.getPessoa() != null;
         result = result && matricula.getPessoa().getCpf() != null;
