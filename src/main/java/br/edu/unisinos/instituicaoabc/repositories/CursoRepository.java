@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+/**
+ * Classe repository reponsavel pela persistencia da entidade Curso.
+ */
 @Repository
 public interface CursoRepository extends JpaRepository<Curso, Long> {
 

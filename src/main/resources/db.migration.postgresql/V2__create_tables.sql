@@ -7,6 +7,6 @@ CREATE SEQUENCE public.matricula_seq;
 -- Cria tabela message
 CREATE TABLE public."matricula"
 (
-    id               bigint                  NOT NULL,
+    id bigint NOT NULL,
     CONSTRAINT message_pkey PRIMARY KEY (id)
 );

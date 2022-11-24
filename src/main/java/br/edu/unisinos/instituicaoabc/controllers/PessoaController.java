@@ -18,6 +18,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Controller para Pessoa responsável pelas requests/responses via  Http REST com JSON.
+ */
 @Log4j2
 @RestController
 @RequestMapping("/")
@@ -26,8 +29,12 @@ public class PessoaController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //Injeta PessoaService
     private final PessoaService pessoaService;
 
+    /**
+     * Metodo reponsavel por buscar todos os dados.
+     */
     @GetMapping("/pessoas")
     public ResponseEntity<List<PessoaDto>> findAll() {
         log.info("findAll");
@@ -38,7 +45,9 @@ public class PessoaController implements Serializable {
         return ResponseEntity.ok(PessoaDto.from(result));
     }
 
-
+    /**
+     * Metodo reponsavel por buscar pessoa por um determinado ID.
+     */
     @GetMapping("/pessoa/{id}")
     @ResponseBody
     public ResponseEntity<PessoaDto> findById(@PathVariable @NotNull Long id) {
@@ -50,6 +59,9 @@ public class PessoaController implements Serializable {
         return ResponseEntity.ok(PessoaDto.from(entity));
     }
 
+    /**
+     * Metodo reponsavel pela criação de pessoa.
+     */
     @PostMapping("/pessoa")
     @ResponseBody
     @Validated(OnCreate.class)
@@ -59,6 +71,9 @@ public class PessoaController implements Serializable {
         return ResponseEntity.ok(PessoaDto.from(savedEntity));
     }
 
+    /**
+     * Metodo reponsavel pela atualização de pessoa.
+     */
     @PutMapping("/pessoa/{id}")
     @ResponseBody
     @Validated(OnUpdate.class)
@@ -71,6 +86,9 @@ public class PessoaController implements Serializable {
         return ResponseEntity.ok(PessoaDto.from(updatedEntity));
     }
 
+    /**
+     * Metodo reponsavel pela exclusao de pessoa por um determinado ID.
+     */
     @DeleteMapping("/pessoa/{id}")
     @Validated(OnDelete.class)
     public void delete(@PathVariable @NotNull Long id) {
@@ -78,8 +96,12 @@ public class PessoaController implements Serializable {
         this.pessoaService.delete(id);
     }
 
+    /**
+     * Metodo reponsavel pela contabilização de quantos pessoas foram cadastrados.
+     */
     @GetMapping("/pessoa/count")
     public Long count() {
         return this.pessoaService.count();
     }
+
 }

@@ -13,6 +13,9 @@ import software.amazon.awssdk.services.sqs.model.SendMessageResponse;
 
 import java.io.Serializable;
 
+/**
+ * Classe reponsavel pelas regras de negócio de envio de mensageria para AWS SQS.
+ */
 @Log4j2
 @Service
 @Transactional
@@ -23,9 +26,12 @@ public class SqsService implements Serializable {
 
     private static final String QUEUE_URL = "https://sqs.us-east-1.amazonaws.com/362770054718/instituicao-abc-matriculado";
 
+    //Injeta SsqClient
     private final SqsClient sqsClient;
 
-
+    /**
+     * Metodo assíncrono responsável pelo envia da mensagem para o message Broker AWS SQS.
+     */
     @Async
     public void sendMessage(String messageBody) {
         SendMessageRequest messageRequest = SendMessageRequest.builder()
@@ -36,6 +42,10 @@ public class SqsService implements Serializable {
         log.info("messageResponse: " + messageResponse);
     }
 
+    /**
+     * Metodo assíncrono responsável pelo envia da mensagem para o message Broker AWS SQS.
+     * Recebe MatriculaDto e converte para Json.
+     */
     @Async
     public void sendMessage(MatriculaDto matriculaDto) {
         this.sendMessage(matriculaDto.toString());

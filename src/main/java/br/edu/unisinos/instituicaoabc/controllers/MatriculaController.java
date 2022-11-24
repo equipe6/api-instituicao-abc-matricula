@@ -15,6 +15,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Controller para Matrícula responsável pelas requests/responses via  Http REST com JSON.
+ */
 @Log4j2
 @RestController
 @RequestMapping("/")
@@ -23,9 +26,12 @@ public class MatriculaController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //Injeta MatriculaService
     private final MatriculaService matriculaService;
 
-
+    /**
+     * Metodo reponsavel por buscar todos os dados.
+     */
     @GetMapping("/matriculas")
     public ResponseEntity<List<MatriculaDto>> findAll() {
         log.info("findAll");
@@ -36,6 +42,9 @@ public class MatriculaController implements Serializable {
         return ResponseEntity.ok(MatriculaDto.from(result));
     }
 
+    /**
+     * Metodo reponsavel por buscar matricula por um determinado ID.
+     */
     @GetMapping("/matricula/{id}")
     @ResponseBody
     public ResponseEntity<MatriculaDto> findById(@PathVariable @NotNull Long id) {
@@ -47,6 +56,9 @@ public class MatriculaController implements Serializable {
         return ResponseEntity.ok(MatriculaDto.from(entity));
     }
 
+    /**
+     * Metodo reponsavel pela criação de matrícula.
+     */
     @PostMapping(value = "matricular")
     @ResponseBody
     public ResponseEntity<MatriculaDto> matricular(@RequestBody MatricularDto dto) {
@@ -54,4 +66,5 @@ public class MatriculaController implements Serializable {
         Matricula matricula = this.matriculaService.matricular(MatricularDto.to(dto));
         return ResponseEntity.ok(MatriculaDto.from(matricula));
     }
+
 }

@@ -8,15 +8,25 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
 
+/**
+ * BaseDto é uma classe abstrata para uso em Entities.
+ */
 public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 6278178885309254907L;
 
+    /**
+     * Sobreescrita do ToString para objetos em fortmato Json sem identação(Tudo em uma Linha).
+     */
     @Override
     public String toString() {
         return this.toString(false);
     }
 
+    /**
+     * ToString para simplificar os logs dos objetos em formato Json.
+     * Parametro prettyPrinter se verdadeiro é responsavel por gerar json indentado em multiplas linhas.
+     */
     public String toString(boolean prettyPrinter) {
         try {
             if (prettyPrinter) {

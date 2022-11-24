@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ * Classe que representa a modelo de dados para pessoa persistente em banco.
+ */
 @Entity
 @Data
 @NoArgsConstructor

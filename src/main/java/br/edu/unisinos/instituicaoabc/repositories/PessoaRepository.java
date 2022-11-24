@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+/**
+ * Classe repository reponsavel pela persistencia da entidade Pessoa.
+ */
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 

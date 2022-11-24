@@ -10,6 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.Serializable;
 
+/**
+ * Classe responsavel por executar o Start da Aplicação Spring Boot.
+ */
 @SpringBootApplication
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class InstituicaoAbcApplication implements Serializable {

@@ -13,6 +13,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Classe reponsavel pelas regras de negócio para Pessoa.
+ */
 @Log4j2
 @Service
 @Transactional
@@ -21,20 +24,33 @@ public class PessoaService implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //Injeta PessoaRepository
     private final transient PessoaRepository pessoaRepository;
 
+    /**
+     * Metodo reponsavel por buscar pessoa por um determinado ID.
+     */
     public Pessoa findById(Long id) {
         return this.pessoaRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Metodo reponsavel por buscar todos os dados.
+     */
     public List<Pessoa> findAll() {
         return this.pessoaRepository.findAll();
     }
 
+    /**
+     * Metodo reponsavel pela criação de pessoa.
+     */
     public Pessoa create(Pessoa pessoa) {
         return this.pessoaRepository.save(pessoa);
     }
 
+    /**
+     * Metodo reponsavel pela atualização de pessoa.
+     */
     public Pessoa update(Pessoa entity, Long id) {
         Optional<Pessoa> entityFind = this.pessoaRepository.findById(id);
         if (entityFind.isEmpty()) {
@@ -45,6 +61,10 @@ public class PessoaService implements Serializable {
         return updatedEntity;
     }
 
+
+    /**
+     * Metodo reponsavel pelo merge de pessoa, caso não exista então cria.
+     */
     public Pessoa mergeOrCreate(Pessoa pessoa) {
         Pessoa pessoaFind = this.findByCpf(pessoa.getCpf());
         if (pessoaFind != null) {
@@ -63,26 +83,45 @@ public class PessoaService implements Serializable {
         return this.pessoaRepository.save(pessoa);
     }
 
+    /**
+     * Metodo reponsavel pela exclusao de pessoa.
+     */
     public void delete(Pessoa pessoa) {
         this.pessoaRepository.delete(pessoa);
     }
 
+    /**
+     * Metodo reponsavel pela exclusao de pessoa por um determinado ID.
+     */
     public void delete(Long id) {
         this.pessoaRepository.deleteById(id);
     }
 
+
+    /**
+     * Metodo reponsavel por buscar pessoa pelo cpf.
+     */
     public Pessoa findByCpf(String cpf) {
         return this.pessoaRepository.findByCpf(cpf);
     }
 
+    /**
+     * Metodo reponsavel por buscar pessoa pelo nome.
+     */
     public List<Pessoa> findByNome(String nome) {
         return this.pessoaRepository.findByNomeLikeIgnoreCase(nome);
     }
 
+    /**
+     * Metodo reponsavel por buscar pessoa pelo email.
+     */
     public List<Pessoa> findByEmail(String email) {
         return this.pessoaRepository.findByEmailLikeIgnoreCase(email);
     }
 
+    /**
+     * Metodo reponsavel pela contabilização de quantos pessoas foram cadastrados.
+     */
     public long count() {
         long result = this.pessoaRepository.count();
         return result;

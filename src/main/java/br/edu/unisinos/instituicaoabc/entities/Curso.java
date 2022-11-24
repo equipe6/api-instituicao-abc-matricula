@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * Classe que representa a modelo de dados para curso persistente em banco.
+ */
 @Entity
 @Data
 @NoArgsConstructor

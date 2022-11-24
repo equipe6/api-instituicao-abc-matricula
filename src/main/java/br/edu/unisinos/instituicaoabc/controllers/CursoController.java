@@ -18,6 +18,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Controller para Curso responsável pelas requests/responses via  Http REST com JSON.
+ */
 @Log4j2
 @RestController
 @RequestMapping("/")
@@ -26,8 +29,12 @@ public class CursoController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //Injeta CursoService
     private final CursoService cursoService;
 
+    /**
+     * Metodo reponsavel por buscar todos os dados.
+     */
     @GetMapping("/cursos")
     public ResponseEntity<List<CursoDto>> findAll() {
         log.info("findAll");
@@ -38,7 +45,9 @@ public class CursoController implements Serializable {
         return ResponseEntity.ok(CursoDto.from(result));
     }
 
-
+    /**
+     * Metodo reponsavel por buscar curso por um determinado ID.
+     */
     @GetMapping("/curso/{id}")
     @ResponseBody
     public ResponseEntity<CursoDto> findById(@PathVariable @NotNull Long id) {
@@ -50,6 +59,9 @@ public class CursoController implements Serializable {
         return ResponseEntity.ok(CursoDto.from(entity));
     }
 
+    /**
+     * Metodo reponsavel pela criação de curso.
+     */
     @PostMapping("/curso")
     @ResponseBody
     @Validated(OnCreate.class)
@@ -59,6 +71,9 @@ public class CursoController implements Serializable {
         return ResponseEntity.ok(CursoDto.from(savedEntity));
     }
 
+    /**
+     * Metodo reponsavel pela atualização de curso.
+     */
     @PutMapping("/curso/{id}")
     @ResponseBody
     @Validated(OnUpdate.class)
@@ -71,6 +86,9 @@ public class CursoController implements Serializable {
         return ResponseEntity.ok(CursoDto.from(updatedEntity));
     }
 
+    /**
+     * Metodo reponsavel pela exclusao de curso por um determinado ID.
+     */
     @DeleteMapping("/curso/{id}")
     @Validated(OnDelete.class)
     public void delete(@PathVariable @NotNull Long id) {
@@ -78,6 +96,9 @@ public class CursoController implements Serializable {
         this.cursoService.delete(id);
     }
 
+    /**
+     * Metodo reponsavel pela contabilização de quantos cursos foram cadastrados.
+     */
     @GetMapping("/curso/count")
     public Long count() {
         return this.cursoService.count();
